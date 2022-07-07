@@ -6,7 +6,8 @@ const fetchCEP = async () => {
 
   const response = await fetch(urlCEP)
   const { bairro, cep, localidade, logradouro, uf, complemento, ddd } = await response.json()
-  const commentCep = `CEP: ${cep}, Estado: ${uf}, Cidade: ${localidade}, Bairro: ${bairro}, Logradouro: ${logradouro} Complemento: ${complemento}, DDD: ${ddd}`
+
+  const commentCep = `CEP: ${cep}, Estado: ${uf}, Cidade: ${localidade || 'Não possue localidade'}, Bairro: ${bairro || 'Não possue bairro'}, Logradouro: ${logradouro || 'Não possue logradouro'} Complemento: ${complemento || 'Não possue complemento'}, DDD: ${ddd}`
   return commentCep
 
 };
@@ -20,8 +21,7 @@ const updateCEP = () => {
         comment: {
           body: await fetchCEP(),
           public: true
-        }, 
-        status: "Solved"
+        },
       }
     })
 
@@ -47,8 +47,40 @@ const updateCEP = () => {
   
 }
 
+const listTickets = () => {
+  const buttonListTickets = document.getElementById('list-tickets')
+  const listTickets = document.getElementById('container-tickets')
+
+  buttonListTickets.addEventListener('click', () => {
+    client
+        .request({
+          url: `/api/v2/tickets/recent`,
+          cors: false,
+          contentType: 'application/json',
+          httpCompleteResponse: true,
+          type: 'GET',
+        })
+        .then(({responseJSON}) => {
+          responseJSON.tickets.map((ticket, index) => {
+            console.log(ticket)
+            const liTicket = document.createElement('li')
+            liTicket.innerHTML = `${index} - ${ticket.raw_subject}`
+            listTickets.appendChild(liTicket) 
+            buttonListTickets.disabled = true
+            buttonListTickets.style.backgroundColor = 'rgb(71, 195, 71)'
+            buttonListTickets.style.color = 'black'
+            buttonListTickets.style.cursor = 'default'
+            buttonListTickets.innerHTML = 'Tickets Listados'
+          })
+        })
+        .catch(() => console.log('fail to find recent tickets'));
+
+  })
+}
+
 const Core = {
   updateCEP,
+  listTickets,
 };
 
 export default Core;

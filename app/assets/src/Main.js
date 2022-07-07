@@ -15,6 +15,7 @@ const Main = async () => {
   // // Write App
   // App.innerHTML = appBody;
   Core.updateCEP()
+  Core.listTickets()
 };
 
 export default Main;
