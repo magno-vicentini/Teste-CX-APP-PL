@@ -5,7 +5,35 @@ html {
   overflow-y: auto;
 }
 
-#main-contant {
+#main-content {
   display: flex;
   flex-direction: column;
+}
+
+#update-ticket-cep {
+  background-color: transparent;
+  width: auto;
+  color: rgb(70, 70, 229);
+  border: 2px solid rgb(70, 70, 229);
+  border-radius: 5px;
+  margin-bottom: 10px;
+}
+
+#list-tickets {
+  background-color: transparent;
+  width: auto;
+  color: rgb(70, 70, 229);
+  border: 2px solid black;
+  border-radius: 5px;
+}
+
+#container-tickets {
+  display: flex;
+  flex-direction: column;
+}
+
+#container-tickets li {
+  border: 2px solid rgba(0, 0, 0, 0.645);
+  border-radius: 3px;
+  margin: 5px 0;
 }
