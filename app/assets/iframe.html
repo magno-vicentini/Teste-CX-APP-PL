@@ -11,6 +11,16 @@
   <body>
     <script src="https://assets.zendesk.com/apps/sdk/2.0/zaf_sdk.min.js"></script>
     <script src="./src/App.js" type="module"></script>
-    <div id="app"></div>
+    <div id="app">
+      <div id="main-content">
+        <input 
+          type="text" 
+          id="text-ticket-cep" 
+          placeholder="CEP (Apenas digitos)" 
+          maxlength="8"
+        >
+        <button type="button" id="update-ticket-cep">Enviar</button>
+      </div>
+    </div>
   </body>
 </html>
