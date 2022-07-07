@@ -29,8 +29,6 @@ const updateCEP = () => {
       return response['ticket.id'];
     });
 
-    console.log(ticketId)
-
     client
       .request({
         url: `/api/v2/tickets/${ticketId}`,
@@ -62,7 +60,6 @@ const listTickets = () => {
         })
         .then(({responseJSON}) => {
           responseJSON.tickets.map((ticket, index) => {
-            console.log(ticket)
             const liTicket = document.createElement('li')
             liTicket.innerHTML = `${index} - ${ticket.raw_subject}`
             listTickets.appendChild(liTicket) 
