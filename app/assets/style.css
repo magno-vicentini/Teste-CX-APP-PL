@@ -4,3 +4,8 @@
 html {
   overflow-y: auto;
 }
+
+#main-contant {
+  display: flex;
+  flex-direction: column;
+}

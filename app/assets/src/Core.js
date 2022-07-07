@@ -2,15 +2,12 @@ let client = ZAFClient.init();
 
 const fetchCEP = async () => {
   const { value } = document.getElementById('text-ticket-cep')
-
-  console.log(value)
   const urlCEP = `https://viacep.com.br/ws/${value}/json/`
 
   const response = await fetch(urlCEP)
-  const data = await response.json()
-  console.log(data)
-
-  return data.bairro
+  const { bairro, cep, localidade, logradouro, uf, complemento, ddd } = await response.json()
+  const commentCep = `CEP: ${cep}, Estado: ${uf}, Cidade: ${localidade}, Bairro: ${bairro}, Logradouro: ${logradouro} Complemento: ${complemento}, DDD: ${ddd}`
+  return commentCep
 
 };
 
@@ -23,7 +20,8 @@ const updateCEP = () => {
         comment: {
           body: await fetchCEP(),
           public: true
-        }
+        }, 
+        status: "Solved"
       }
     })
 
@@ -32,7 +30,6 @@ const updateCEP = () => {
     });
 
     console.log(ticketId)
-    console.log(client)
 
     client
       .request({
